@@ -41,19 +41,21 @@ func (us UserServiceImpl) fetchUserDetails(ctx context.Context, userID string) (
 	}
 	resp, err := us.httpClient.Do(request)
 	if err != nil {
+		// response wil be nil so no need to close it
 		log.Println("error fetching user details", err)
 		return model.User{}, common.ErrUserFetchDetailsError
 	}
-	if resp.StatusCode != http.StatusOK {
-		log.Println("error fetching user details", resp.StatusCode)
-		return model.User{}, common.ErrUserFetchDetailsError
-	}
 	defer func() {
+		// need to close it since, resp.Body will take some memory
 		err = resp.Body.Close()
 		if err != nil {
 			log.Println("error closing response body", err)
 		}
 	}()
+	if resp.StatusCode != http.StatusOK {
+		log.Println("error fetching user details", resp.StatusCode)
+		return model.User{}, common.ErrUserFetchDetailsError
+	}
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Println("error reading response body", err)
