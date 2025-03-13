@@ -38,8 +38,7 @@ func (s *HttpServer) OrderHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var batchedOrders [][]model.Order
-	batchedOrders = s.orderService.TransformAndSplitOrders(orderIDs)
+	batchedOrders := s.orderService.TransformAndSplitOrders(orderIDs)
 	userDetailsMap := make(map[string]model.User, len(orderIDs))
 	for _, batch := range batchedOrders {
 		orderIdsToProcess := make([]string, 0, len(batch))
