@@ -49,8 +49,8 @@ func (w *UserDetailsWorkerPool) processJob(
 	jobsCh <-chan string,
 	outCh chan<- model.User,
 	wg *sync.WaitGroup,
-	jobFunc func(context.Context, string,
-	) (model.User, error)) {
+	jobFunc func(context.Context, string) (model.User, error),
+) {
 	defer wg.Done()
 	fmt.Println(fmt.Sprintf("Worker %d started", workerId))
 	go func() {
