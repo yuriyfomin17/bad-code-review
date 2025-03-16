@@ -1,13 +1,20 @@
 package main
 
 import (
-	"bad-code-review/config"
-	"bad-code-review/http_handler"
 	"log"
 	"net/http"
+
+	"github.com/joho/godotenv"
+
+	"github.com/yuriyfomin17/bad-code-review/config"
+	"github.com/yuriyfomin17/bad-code-review/http_handler"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	cfg, err := config.Read()
 	if err != nil {
 		log.Fatal("error happened while reading config", err)

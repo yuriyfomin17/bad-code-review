@@ -1,10 +1,11 @@
 package pkg
 
 import (
-	"bad-code-review/model"
 	"context"
 	"fmt"
 	"sync"
+
+	"github.com/yuriyfomin17/bad-code-review/model"
 )
 
 type UserDetailsWorkerPool struct {

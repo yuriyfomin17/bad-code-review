@@ -1,8 +1,9 @@
 package service
 
 import (
-	"bad-code-review/model"
 	"context"
+
+	"github.com/yuriyfomin17/bad-code-review/model"
 )
 
 type UserService interface {

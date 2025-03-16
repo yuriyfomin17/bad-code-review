@@ -1,9 +1,10 @@
 package service
 
 import (
-	"bad-code-review/model"
 	"context"
 	"log"
+
+	"github.com/yuriyfomin17/bad-code-review/model"
 )
 
 type OrderServiceImpl struct {
@@ -36,22 +37,17 @@ func (os OrderServiceImpl) TransformOrderIdsToOrders(ctx context.Context, orderI
 	return orders
 }
 
+func (os OrderServiceImpl) batchOrderIds(orderIDs []string) [][]string {
+	return os.transformToBatchOrderIds(orderIDs)
+}
 func (os OrderServiceImpl) transformToBatchOrderIds(orderIDs []string) [][]string {
-	var batches [][]string
-	batch := make([]string, 0, os.numOrdersIdsToProcess)
-	ct := 0
-	for _, id := range orderIDs {
-		if ct < os.numOrdersIdsToProcess {
-			batch = append(batch, id)
-		} else if ct == os.numOrdersIdsToProcess {
-			batches = append(batches, batch)
-			batch = make([]string, 0, os.numOrdersIdsToProcess)
+	batches := make([][]string, 0, len(orderIDs)/os.numOrdersIdsToProcess+1)
+	for i := 0; i < len(orderIDs); i += os.numOrdersIdsToProcess {
+		end := i + os.numOrdersIdsToProcess
+		if end > len(orderIDs) {
+			end = len(orderIDs)
 		}
-		ct += 1
-		ct %= os.numOrdersIdsToProcess
-	}
-	if len(batch) > 0 {
-		batches = append(batches, batch)
+		batches = append(batches, orderIDs[i:end])
 	}
 	return batches
 }

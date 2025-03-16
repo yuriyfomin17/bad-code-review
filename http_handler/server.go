@@ -1,8 +1,9 @@
 package http_handler
 
 import (
-	"bad-code-review/service"
 	"fmt"
+
+	"github.com/yuriyfomin17/bad-code-review/service"
 )
 
 type HttpServer struct {

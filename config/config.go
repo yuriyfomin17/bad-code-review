@@ -1,11 +1,12 @@
 package config
 
 import (
-	"bad-code-review/common"
 	"errors"
 	"fmt"
 	"os"
 	"strconv"
+
+	"github.com/yuriyfomin17/bad-code-review/common"
 )
 
 type Config struct {
@@ -21,8 +22,6 @@ func Read() (Config, error) {
 	serverPort, exists := os.LookupEnv("SERVER_PORT")
 	if exists {
 		config.Port = serverPort
-	} else {
-		config.Port = ":8080"
 	}
 
 	numOfWorkers, err := getIntEnvByKey("NUM_OF_WORKERS")

@@ -1,15 +1,16 @@
 package service
 
 import (
-	"bad-code-review/common"
-	"bad-code-review/model"
-	"bad-code-review/pkg"
 	"context"
 	"encoding/json"
 	"io"
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/yuriyfomin17/bad-code-review/common"
+	"github.com/yuriyfomin17/bad-code-review/model"
+	"github.com/yuriyfomin17/bad-code-review/pkg"
 )
 
 type UserServiceImpl struct {
