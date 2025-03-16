@@ -10,5 +10,5 @@ type UserService interface {
 }
 
 type OrderService interface {
-	TransformAndSplitOrders(orderIDs []string) [][]model.Order
+	TransformOrderIdsToOrders(ctx context.Context, orderIDs []string) []model.Order
 }
